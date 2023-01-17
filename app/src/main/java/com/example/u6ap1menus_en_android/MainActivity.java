@@ -1,6 +1,8 @@
 package com.example.u6ap1menus_en_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recycler = findViewById(R.id.idRecyclerView);
+        //recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         listDatos = new ArrayList<>();
 
         for (int i = 0; i < 50; i++) {
