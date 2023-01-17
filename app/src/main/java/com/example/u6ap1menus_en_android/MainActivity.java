@@ -1,17 +1,33 @@
 package com.example.u6ap1menus_en_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<String> listDatos;
+    RecyclerView recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recycler = findViewById(R.id.idRecyclerView);
+        listDatos = new ArrayList<>();
+
+        for (int i = 0; i < 50; i++) {
+            listDatos.add("Dato: " + i + " ");
+        }
+
+        AdapterDatos adaptador = new AdapterDatos(listDatos);
+        recycler.setAdapter(adaptador);
     }
 
     @Override
