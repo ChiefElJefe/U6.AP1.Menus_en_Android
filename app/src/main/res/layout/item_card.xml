@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
-    android:background="@color/black">
+    android:layout_gravity="center"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
 
-    <TextView
-        android:id="@+id/idTarjeta"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:background="@color/purple_700"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/prueba"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textSize="24sp" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/backgroundgradient">
+
+        <ImageView
+            android:id="@+id/idivcsm"
+            android:layout_width="136dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/idtxtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
