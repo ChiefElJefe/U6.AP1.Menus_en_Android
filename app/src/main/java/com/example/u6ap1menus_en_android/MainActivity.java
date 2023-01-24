@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,13 +52,30 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Pagina> pagina;
     Intent pasoPagina;
 
+    DialogoLogo dialogo;
+    boolean empezar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dialogo = new DialogoLogo(MainActivity.this);
+
+        empezar = false;
+
         pagina = new ArrayList<>();
         pasoPagina = new Intent(getApplicationContext(), MainActivity2.class);
+        dialogo = new DialogoLogo(MainActivity.this);
+        dialogo.mostrarDialogo("Cargando...");
+        Handler manejador = new Handler();
+        manejador.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialogo.cerrarDialogo();
+            }
+        },5000);
+
+
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -66,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     exitoDescarga = descargarFichero("https://github.com/ChiefElJefe/CarpetaImage/raw/main/Image/csm"+(i+1)+".jpg");
                     exitoDescarga = descargarFichero("https://github.com/ChiefElJefe/CarpetaImage/raw/main/Image/csm"+(i+1)+"re.jpg");
                 }
+                empezar = true;
             }
         });
 
@@ -74,15 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        recycler = findViewById(R.id.idNew);
-        recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-        mangavo = new ArrayList<>();
-        
-        rellenarVista();
-
-        adaptador = new AdapterDatos(mangavo);
-        recycler.setAdapter(adaptador);
     }
 
     private void rellenarVista() {
@@ -124,6 +135,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        recycler = findViewById(R.id.idNew);
+        recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        mangavo = new ArrayList<>();
+
+        rellenarVista();
+
+        adaptador = new AdapterDatos(mangavo);
+        recycler.setAdapter(adaptador);
 
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
