@@ -10,8 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/backgroundgradient">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/backgroundgradient"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/idivcsm"
@@ -27,10 +31,10 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

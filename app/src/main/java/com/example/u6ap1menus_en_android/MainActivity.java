@@ -53,15 +53,12 @@ public class MainActivity extends AppCompatActivity {
     Intent pasoPagina;
 
     DialogoLogo dialogo;
-    boolean empezar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         dialogo = new DialogoLogo(MainActivity.this);
-
-        empezar = false;
 
         pagina = new ArrayList<>();
         pasoPagina = new Intent(getApplicationContext(), MainActivity2.class);
@@ -85,18 +82,14 @@ public class MainActivity extends AppCompatActivity {
                     exitoDescarga = descargarFichero("https://github.com/ChiefElJefe/CarpetaImage/raw/main/Image/csm"+(i+1)+".jpg");
                     exitoDescarga = descargarFichero("https://github.com/ChiefElJefe/CarpetaImage/raw/main/Image/csm"+(i+1)+"re.jpg");
                 }
-                empezar = true;
             }
         });
 
         t.start();
 
-
-
-
     }
 
-    private void rellenarVista() {
+    private boolean rellenarVista() {
         String datos ="";
         try {
             InputStreamReader in = new InputStreamReader(new FileInputStream(getApplicationContext().getFilesDir() + "/texto.json"));
@@ -116,13 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 mangavo.add(new MangaVo(texto.getString(i),getApplicationContext().getFilesDir() + "/" + img.getString(i)));
                 pagina.add(new Pagina(volumen.getString(i), sinopsis.getString(i),getApplicationContext().getFilesDir() + "/" + img2.getString(i)));
             }
-
-        } catch (JSONException e) {
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
 
     }
@@ -140,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         mangavo = new ArrayList<>();
-
-        rellenarVista();
+        while (!rellenarVista()){}
 
         adaptador = new AdapterDatos(mangavo);
         recycler.setAdapter(adaptador);
